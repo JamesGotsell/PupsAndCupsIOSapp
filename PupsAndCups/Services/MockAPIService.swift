@@ -15,6 +15,11 @@ final class MockAPIService: APIServiceProtocol {
         return "mock-auth-token-\(UUID().uuidString)"
     }
 
+    func register(name: String, email: String, password: String) async throws -> String {
+        try await Task.sleep(nanoseconds: delay)
+        return "mock-auth-token-\(UUID().uuidString)"
+    }
+
     func fetchCustomer() async throws -> Customer {
         try await Task.sleep(nanoseconds: delay)
         return MockData.customer

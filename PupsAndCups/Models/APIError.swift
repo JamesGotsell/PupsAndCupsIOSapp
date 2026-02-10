@@ -8,6 +8,8 @@ enum APIError: Error, LocalizedError {
     case decodingError(Error)
     case insufficientPoints
     case invalidQRCode
+    case invalidCredentials
+    case emailAlreadyExists
     case unknown
 
     var errorDescription: String? {
@@ -26,6 +28,10 @@ enum APIError: Error, LocalizedError {
             return "You don't have enough points for this reward."
         case .invalidQRCode:
             return "The scanned QR code is not valid."
+        case .invalidCredentials:
+            return "Invalid email or password."
+        case .emailAlreadyExists:
+            return "An account with this email already exists."
         case .unknown:
             return "An unknown error occurred."
         }

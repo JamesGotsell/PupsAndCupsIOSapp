@@ -8,6 +8,7 @@ enum QRScanResult {
 protocol APIServiceProtocol {
     // Auth
     func login(email: String, password: String) async throws -> String
+    func register(name: String, email: String, password: String) async throws -> String
     func logout() async throws
 
     // Customer

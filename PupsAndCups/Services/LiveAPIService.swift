@@ -56,6 +56,14 @@ final class LiveAPIService: APIServiceProtocol {
         return response.token
     }
 
+    func register(name: String, email: String, password: String) async throws -> String {
+        let body = try JSONEncoder().encode(["name": name, "email": email, "password": password])
+        let request = authorizedRequest(for: "auth/register", method: "POST", body: body)
+        let response: LoginResponse = try await perform(request)
+        keychainService.saveToken(response.token)
+        return response.token
+    }
+
     func logout() async throws {
         let request = authorizedRequest(for: "auth/logout", method: "POST")
         let _: EmptyResponse = try await perform(request)

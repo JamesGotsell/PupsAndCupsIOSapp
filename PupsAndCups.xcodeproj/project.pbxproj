@@ -47,6 +47,9 @@
 		NEW011 /* BusinessInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = NEWREF011 /* BusinessInfoView.swift */; };
 		NEW012 /* BusinessRewardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = NEWREF012 /* BusinessRewardsView.swift */; };
 		NEW013 /* BusinessHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = NEWREF013 /* BusinessHistoryView.swift */; };
+		AUTH101A1B2C3D4E5F607182 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AUTH001A1B2C3D4E5F607182 /* AuthViewModel.swift */; };
+		AUTH102A1B2C3D4E5F607182 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AUTH002A1B2C3D4E5F607182 /* LoginView.swift */; };
+		AUTH103A1B2C3D4E5F607182 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AUTH003A1B2C3D4E5F607182 /* RegisterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,6 +94,9 @@
 		NEWREF011 /* BusinessInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessInfoView.swift; sourceTree = "<group>"; };
 		NEWREF012 /* BusinessRewardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessRewardsView.swift; sourceTree = "<group>"; };
 		NEWREF013 /* BusinessHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessHistoryView.swift; sourceTree = "<group>"; };
+		AUTH001A1B2C3D4E5F607182 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		AUTH002A1B2C3D4E5F607182 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		AUTH003A1B2C3D4E5F607182 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +220,7 @@
 		F3533A2279EAD65233E99B38 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				AUTH001A1B2C3D4E5F607182 /* AuthViewModel.swift */,
 				NEWREF004 /* BusinessDetailViewModel.swift */,
 				NEWREF005 /* DiscoverViewModel.swift */,
 				0A91CEBC6496AF0F42D81A2C /* HistoryViewModel.swift */,
@@ -227,6 +234,7 @@
 		F867080DDDCAA8CC74A91BE2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AUTHGRP01A1B2C3D4E5F6071 /* Auth */,
 				NEWGRP001 /* Business */,
 				7ED8C70510190B876F51EFCA /* Components */,
 				NEWGRP002 /* Discover */,
@@ -277,6 +285,15 @@
 				NEWREF008 /* DiscoverView.swift */,
 			);
 			path = Discover;
+			sourceTree = "<group>";
+		};
+		AUTHGRP01A1B2C3D4E5F6071 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				AUTH002A1B2C3D4E5F607182 /* LoginView.swift */,
+				AUTH003A1B2C3D4E5F607182 /* RegisterView.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -382,6 +399,9 @@
 				NEW011 /* BusinessInfoView.swift in Sources */,
 				NEW012 /* BusinessRewardsView.swift in Sources */,
 				NEW013 /* BusinessHistoryView.swift in Sources */,
+				AUTH101A1B2C3D4E5F607182 /* AuthViewModel.swift in Sources */,
+				AUTH102A1B2C3D4E5F607182 /* LoginView.swift in Sources */,
+				AUTH103A1B2C3D4E5F607182 /* RegisterView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,14 @@ struct ContentView: View {
     @State private var selectedBusinessId: UUID?
 
     var body: some View {
+        if appState.isLoggedIn {
+            mainContent
+        } else {
+            LoginView(service: appState.service)
+        }
+    }
+
+    private var mainContent: some View {
         TabView(selection: $selectedTab) {
             MyBusinessesView(
                 service: appState.service,
