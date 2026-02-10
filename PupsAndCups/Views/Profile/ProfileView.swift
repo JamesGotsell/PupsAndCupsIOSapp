@@ -11,14 +11,14 @@ struct ProfileView: View {
     var body: some View {
         NavigationStack {
             Group {
-                if viewModel.isLoading && viewModel.customer == nil {
-                    LoadingView()
-                } else if let error = viewModel.error, viewModel.customer == nil {
+                if let customer = viewModel.customer {
+                    profileContent(customer: customer)
+                } else if let error = viewModel.error {
                     ErrorView(message: error.localizedDescription) {
                         Task { await viewModel.load() }
                     }
-                } else if let customer = viewModel.customer {
-                    profileContent(customer: customer)
+                } else {
+                    LoadingView()
                 }
             }
             .navigationTitle("Profile")
