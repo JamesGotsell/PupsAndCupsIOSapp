@@ -5,11 +5,13 @@ A loyalty and rewards program mobile application for a dog cafe chain.
 ## Purpose
 
 Pups & Cups enables customers to:
-- Earn points through purchases at Pups & Cups locations
+- Register for an account or log in with existing credentials
+- Discover and join loyalty programs at participating businesses
+- Earn points through purchases at partner locations
 - Scan QR codes at physical locations to record transactions
-- Track transaction history
+- Track transaction history across all memberships
 - Redeem rewards using accumulated points
-- Progress through membership tiers (Bronze → Silver → Gold → Platinum)
+- Manage their profile and view account stats
 
 ## Architecture
 
@@ -24,42 +26,41 @@ Pups & Cups enables customers to:
 
 ```
 PupsAndCups/
-├── Models/          # Customer, Transaction, Reward, APIError
+├── Models/          # Customer, Business, Membership, Transaction, Reward, APIError
 ├── Services/        # LiveAPIService, MockAPIService, KeychainService
-├── ViewModels/      # Home, Scan, Rewards, Profile, History VMs
+├── ViewModels/      # Auth, MyBusinesses, Discover, BusinessDetail, Scan, Profile, History VMs
 ├── Views/           # SwiftUI views organized by feature
-│   ├── Components/  # Reusable UI components
-│   ├── Home/        # Dashboard with balance and recent activity
+│   ├── Auth/        # Login and Registration screens
+│   ├── Components/  # Reusable UI components (LoadingView, ErrorView, FloatingActionButton)
+│   ├── Home/        # Dashboard with memberships and quick scan access
+│   ├── Discover/    # Browse and join new loyalty programs
+│   ├── Business/    # Business detail, info, history, and rewards
 │   ├── Scan/        # QR code scanning
-│   ├── Rewards/     # Reward catalog and redemption
-│   ├── Profile/     # User profile and tier progress
-│   └── History/     # Paginated transaction history
+│   ├── Rewards/     # Reward cards and redemption confirmation
+│   ├── Profile/     # User profile and account stats
+│   └── History/     # Transaction history
 └── Utilities/       # Extensions, MockData
 ```
 
 ## Key Features
 
+### Authentication (Login & Registration)
+Full authentication flow with dedicated login and registration screens. Includes form validation (email format, password length, password confirmation), loading states, and error handling. Auth state is managed globally via `AppState` — unauthenticated users see the login screen, authenticated users see the main tab interface.
+
 ### Tab Navigation
-Four main sections: Home, Rewards, History, and Profile.
+Four main sections: Home, Discover, Activity, and Profile.
+
+### Discover & Join Businesses
+Browse and search for participating businesses. View business details including info, rewards, and transaction history. Join new loyalty programs directly from the app.
 
 ### QR Code Scanning
-Camera integration using AVFoundation with full-screen overlay and guidance UI.
+Camera integration using AVFoundation with full-screen overlay, guidance UI, and a floating action button for quick access from the Home tab.
 
-### Tier System
-Visual progress tracking with color-coded badges:
-- **Bronze** - 0 points
-- **Silver** - 500 points
-- **Gold** - 1,500 points
-- **Platinum** - 5,000 points
-
-### Infinite Scroll
-Paginated transaction history with lazy loading (20 items per page).
-
-### Pull-to-Refresh
-Available on Home, Rewards, and History screens.
+### Profile & Stats
+View account information, membership stats, and logout. The profile view handles all loading states with proper fallback rendering.
 
 ### Secure Authentication
-Tokens stored securely in iOS Keychain.
+Auth tokens stored securely in iOS Keychain. All authenticated API requests include a Bearer token in the Authorization header.
 
 ## Backend API
 
@@ -69,22 +70,29 @@ Connects to `https://api.pupsandcups.com/v1`
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| POST | `/auth/login` | User authentication |
+| POST | `/auth/login` | User login |
+| POST | `/auth/register` | User registration |
+| POST | `/auth/logout` | User logout |
 | GET | `/customer` | Fetch user profile |
+| GET | `/memberships` | Fetch user memberships |
+| GET | `/businesses?q={query}` | Search businesses |
+| GET | `/businesses/{id}` | Get business details |
+| POST | `/businesses/{id}/join` | Join a loyalty program |
+| GET | `/transactions` | Fetch all transactions |
 | GET | `/transactions/recent?limit={n}` | Recent transactions |
 | GET | `/transactions?page={p}&pageSize={s}` | Paginated history |
 | POST | `/scan` | Submit QR code |
 | GET | `/rewards` | List available rewards |
 | POST | `/rewards/{id}/redeem` | Redeem a reward |
-| POST | `/auth/logout` | User logout |
 
 ## Technical Highlights
 
 - **Thread Safety** - `@MainActor` ensures UI updates on main thread
+- **Global Auth State** - `AppState` environment object manages authentication and routes between login and main content
 - **Testability** - Protocol-based services with MockAPIService for testing/previews
 - **Camera Bridge** - UIViewControllerRepresentable for AVFoundation integration
 - **Custom Styling** - Extension-based color system (appPrimary, appAccent, appBackground)
-- **Error Handling** - Custom APIError enum with localized descriptions and retry functionality
+- **Error Handling** - Custom APIError enum with localized descriptions (including auth-specific errors like `invalidCredentials` and `emailAlreadyExists`)
 - **State Management** - @Published, @StateObject, and @EnvironmentObject for reactivity
 
 ## Frameworks Used
